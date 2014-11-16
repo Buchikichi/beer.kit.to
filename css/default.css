@@ -1,0 +1,22 @@
+@CHARSET "UTF-8";
+
+body {
+	background-color: #f0f29e;
+}
+
+#countryList a {
+/*	background-color: #edeecb;*/
+}
+#countryList img {
+	border: 1px solid #cccccc;
+}
+#countryList input {
+	margin-right: 4px;
+}
+
+/*
+ * Result List
+ */
+#resultList .list-group-item {
+	/*cursor: pointer;*/
+}
