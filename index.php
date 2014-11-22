@@ -61,6 +61,7 @@
 </div>
 -->
   <div id="resultList" class="list-group" role="list">
+<!--
     <a href="#" class="list-group-item">
       <span class="media-left"><img src="./img/64x64.png" class="img-thumbnail"/></span>
       <span class="media-body">
@@ -140,6 +141,7 @@
       3種類のレッドフルーツを使用した珍しいフルーツランビック
       </span>
     </a>
+-->
   </div>
   <div id="dialog"></div>
 </body>

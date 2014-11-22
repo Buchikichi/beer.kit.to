@@ -10,6 +10,7 @@ app:<a href="../app/" target="_blank">app</a>
 <a href="../app/?act=languageList" target="_blank">LanguageList</a>
 <a href="../app/?act=countryList" target="_blank">CountryList</a>
 <a href="../app/?act=shopList" target="_blank">ShopListAction</a>
+<a href="../app/?act=itemList" target="_blank">ItemListAction</a>
 <hr/>
 <a href="../" target="_blank">index</a>
 /<a href="info.php" target="_blank">info</a>

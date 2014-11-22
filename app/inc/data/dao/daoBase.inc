@@ -18,4 +18,21 @@ abstract class DaoBase {
 
 	function connect() {
 	}
+
+	function select($query, array $param = null) {
+		$stmt = $this->pdo->prepare($query);
+		$stmt->execute($param);
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+	}
+
+	function selectOne($query, array $param = null) {
+		$result;
+		$list = $this->select($query, $param);
+
+		foreach ($list as $rec) {
+			$result = $rec;
+			break;
+		}
+		return $result;
+	}
 }

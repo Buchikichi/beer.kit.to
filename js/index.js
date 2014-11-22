@@ -25,6 +25,7 @@ $(document).ready(function() {
 			dlg.html(data);
 			dlg.dialog({
 				title: 'About...',
+				height: 200,
 				modal: true,
 				buttons: {
 					'OK': function() {
@@ -35,6 +36,7 @@ $(document).ready(function() {
 		});
 		return false;
 	});
+	showItemList();
 });
 function setupLanguage() {
 	var param = {act:'languageList'};
@@ -61,6 +63,7 @@ function setupLanguage() {
 					$(this).removeClass('active');
 				});
 				li.addClass('active');
+				resetItemList();
 				return false;
 			});
 		});
@@ -163,4 +166,51 @@ function setupShop() {
 				}
 			}
 		});
+}
+function resetItemList() {
+	var resultList = $('#resultList');
+	resultList.empty();
+	showItemList();
+}
+function showItemList() {
+	var resultList = $('#resultList');
+	var param = {act:'itemList', lang:getLang()};
+	$.getJSON('app', param, function(data) {
+		$(data.list).each(function(ix, rec) {
+//<a href="#" class="list-group-item">
+//  <span class="media-left"><img src="./img/64x64.png" class="img-thumbnail"/></span>
+//  <span class="media-body">
+//    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABcAAAAUCAIAAADp3DFZAAAABmJLR0QA/wD/AP+gvaeTAAAALUlEQVQ4jWNkwAaCvMRWTNPBFP/e9uvP4b+Y4kxYTSEVjJoyasqoKaOmjARTADyKB3dQow4IAAAAAElFTkSuQmCC" title="ベルギー"/>
+//    <strong class="media-heading">タラスブルバ</strong>
+//    <span class="badge">4.5</span>
+//    <span class="label label-primary">エール</span>
+//    <span class="label label-primary">ホップ</span>
+//    <br/>
+//    アルコール度数低めで、ホップの香りを最大限に活かしたゴールデンエール
+//  </span>
+//</a>
+			var anc = $('<a href="#" class="list-group-item"></a>');
+			var thumbnail = $('<span class="media-left"><img src="./img/64x64.png" class="img-thumbnail"/></span>');
+			var bd = $('<span class="media-body"></span>');
+			var img = $('<img src="data:image/png;base64,' + rec.flag + '" alt="' + rec.countryCd + '"/>');
+			var name = $('<strong class="media-heading">' + rec.itemName + '</strong>');
+			var abv = $('<span class="badge">' + rec.abv + '</span>');
+
+			bd.append(img);
+			bd.append(name);
+			bd.append(abv);
+			$(rec.tags).each(function(ix, tagName) {
+				var tag = $('<span class="label label-primary">' + tagName + '</span>');
+				bd.append(tag);
+			});
+			bd.append($('<br/>'));
+			bd.append('');
+			anc.append(thumbnail);
+			anc.append(bd);
+			anc.click(function() {
+				return false;
+			});
+			resultList.append(anc);
+		});
+	});
 }
