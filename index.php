@@ -13,12 +13,8 @@
 <title>drink.kit.to</title>
 </head>
 
-<?php
-	define('APP_ROOT', __DIR__.'/app');
-	include(APP_ROOT.'/inc/util/autoLoading.inc');
-?>
 <body>
-  <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <nav id="topNav" class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
       <div class="navbar-header"><span class="navbar-brand">drink.kit.to</span></div>
       <div class="navbar-collapse collapse">
@@ -42,7 +38,7 @@
         <form class="navbar-form navbar-right" role="search">
           <div class="form-group input-group">
             <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
-            <input type="text" placeholder="Search" class="form-control"/>
+            <input type="text" name="keyword" placeholder="Search" class="form-control"/>
           </div>
         </form>
       </div><!--/.nav-collapse -->
@@ -60,89 +56,35 @@
 </div>
 </div>
 -->
-  <div id="resultList" class="list-group" role="list">
-<!--
-    <a href="#" class="list-group-item">
-      <span class="media-left"><img src="./img/64x64.png" class="img-thumbnail"/></span>
-      <span class="media-body">
-        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABcAAAAUCAIAAADp3DFZAAAABmJLR0QA/wD/AP+gvaeTAAAALUlEQVQ4jWNkwAaCvMRWTNPBFP/e9uvP4b+Y4kxYTSEVjJoyasqoKaOmjARTADyKB3dQow4IAAAAAElFTkSuQmCC" title="ベルギー"/>
-        <strong class="media-heading">タラスブルバ</strong>
-        <span class="badge">4.5</span>
-        <span class="label label-primary">エール</span>
-        <span class="label label-primary">ホップ</span>
-        <br/>
-        アルコール度数低めで、ホップの香りを最大限に活かしたゴールデンエール
-      </span>
-    </a>
-    <a href="#" class="list-group-item">
-      <span class="media-left"><img src="./img/64x64.png" class="img-thumbnail"/></span>
-      <span class="media-body">
-        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABcAAAAUCAIAAADp3DFZAAAABmJLR0QA/wD/AP+gvaeTAAAALUlEQVQ4jWNkwAaCvMRWTNPBFP/e9uvP4b+Y4kxYTSEVjJoyasqoKaOmjARTADyKB3dQow4IAAAAAElFTkSuQmCC">
-        <strong class="media-heading">ジネビア</strong>
-        <span class="badge">5.8</span>
-        <span class="label label-primary">ホップ</span>
-        <br/>
-        St.デラセーヌ醸造所で造られる苦味が効いたベルジャンエール
-      </span>
-    </a>
-    <a href="#" class="list-group-item">
-      <span class="media-left"><img src="./img/64x64.png" class="img-thumbnail"/></span>
-      <span class="media-body">
-        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABcAAAAUCAIAAADp3DFZAAAABmJLR0QA/wD/AP+gvaeTAAAALUlEQVQ4jWNkwAaCvMRWTNPBFP/e9uvP4b+Y4kxYTSEVjJoyasqoKaOmjARTADyKB3dQow4IAAAAAElFTkSuQmCC">
-        <strong class="media-heading">ドゥシャス・デ・ブルゴーニュ</strong>
-        <span class="badge">6.2</span>
-        <span class="label label-primary">エール</span>
-        <br/>
-        フランダースエールの傑作。酸味と上品な甘さが絶妙のハーモニーを奏でる
-      </span>
-    </a>
-    <a href="#" class="list-group-item">
-      <span class="media-left"><img src="./img/64x64.png" class="img-thumbnail"/></span>
-      <span class="media-body">
-        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABcAAAAUCAIAAADp3DFZAAAABmJLR0QA/wD/AP+gvaeTAAAALUlEQVQ4jWNkwAaCvMRWTNPBFP/e9uvP4b+Y4kxYTSEVjJoyasqoKaOmjARTADyKB3dQow4IAAAAAElFTkSuQmCC">
-        <strong class="media-heading">トリプル・カルメリート</strong>
-        <span class="badge">8.0</span>
-        <span class="label label-primary">エール</span>
-        <br/>
-        柑橘系の爽やかな香りに、スパイシーとフルーティーのバランスが非常に良い優秀なビール
-      </span>
-    </a>
-    <a href="#" class="list-group-item">
-      <span class="media-left"><img src="./img/64x64.png" class="img-thumbnail"/></span>
-      <span class="media-body">
-      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABcAAAAUCAIAAADp3DFZAAAABmJLR0QA/wD/AP+gvaeTAAAALUlEQVQ4jWNkwAaCvMRWTNPBFP/e9uvP4b+Y4kxYTSEVjJoyasqoKaOmjARTADyKB3dQow4IAAAAAElFTkSuQmCC">
-      <strong class="media-heading">カンティヨン グーズ</strong>
-      <span class="badge">5.0</span>
-      <span class="label label-primary">ランビック</span>
-      <span class="label label-primary">グーズ</span>
-      <br/>
-      酸味が非常に強く"すっぱい"という表現がぴったり
-      </span>
-    </a>
-    <a href="#" class="list-group-item">
-      <span class="media-left"><img src="./img/64x64.png" class="img-thumbnail"/></span>
-      <span class="media-body">
-      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABcAAAAUCAIAAADp3DFZAAAABmJLR0QA/wD/AP+gvaeTAAAALUlEQVQ4jWNkwAaCvMRWTNPBFP/e9uvP4b+Y4kxYTSEVjJoyasqoKaOmjARTADyKB3dQow4IAAAAAElFTkSuQmCC">
-      <strong class="media-heading">セゾン デュポン</strong>
-      <span class="badge">6.5</span>
-      <span class="label label-primary">エール</span>
-      <br/>
-      伝統的なセゾンスタイルを忠実に守っており、特徴をしっかりとあらわす
-      </span>
-    </a>
-    <a href="#" class="list-group-item">
-      <span class="media-left"><img src="./img/64x64.png" class="img-thumbnail"/></span>
-      <span class="media-body">
-      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABcAAAAUCAIAAADp3DFZAAAABmJLR0QA/wD/AP+gvaeTAAAALUlEQVQ4jWNkwAaCvMRWTNPBFP/e9uvP4b+Y4kxYTSEVjJoyasqoKaOmjARTADyKB3dQow4IAAAAAElFTkSuQmCC">
-      <strong class="media-heading">ブラッセルズ レッドフルーツ</strong>
-      <span class="badge">3.2</span>
-      <span class="label label-primary">ランビック</span>
-      <br/>
-      3種類のレッドフルーツを使用した珍しいフルーツランビック
-      </span>
-    </a>
--->
+  <div id="resultList" class="list-group" role="list"></div>
+  <div id="dialog" class="container">
+    <div id="countryList" class="list-group"></div>
+    <div id="shopSelection">
+      <div class="input-group">
+        <span class="input-group-addon glyphicon glyphicon-search"></span>
+        <input type="text" class="form-control" autoFocus/>
+      </div>
+      <div class="list-group shopList"></div>
+    </div>
+    <div id="itemDetail">
+      <div class="panel panel-info">
+        <div class="panel-body">
+          <span class="media-left"><img id="itemImg" src="" width="256" height="256"/></span>
+          <span id="itemNote" class="media-body">
+            <img src="" class="flag"/>
+            <strong class="media-heading">itemName</strong><br/>
+            <span class="note"></span><br/>
+            <span class="ext">
+            </span>
+          </span>
+        </div>
+      </div>
+      <div class="panel panel-success" style="height: 200px; max-height: 200px;">
+        <div class="panel-heading">コメント</div>
+        <div class="list-group-item">コメントはまだありません.</div>
+      </div>
+    </div>
+    <div id="about"></div>
   </div>
-  <div id="dialog"></div>
 </body>
 </html>

@@ -12,11 +12,16 @@ abstract class ActionBase {
 		$this->process();
 	}
 
-	protected function getLang() {
-		$lang = null;
-		if (!empty($_REQUEST['lang'])) {
-			$lang = $_REQUEST['lang'];
+	protected function getParam($name) {
+		$val = '';
+		if (!empty($_REQUEST[$name])) {
+			$val = $_REQUEST[$name];
 		}
+		return $val;
+	}
+
+	protected function getLang() {
+		$lang = $this->getParam('lang');
 		if (empty($lang)) {
 			if (!empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
 				$lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);

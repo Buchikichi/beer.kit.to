@@ -3,20 +3,29 @@
 body {
 	background-color: #f0f29e;
 }
+#topNav {
+	z-index: 90;
+}
 
 #countryList a {
 /*	background-color: #edeecb;*/
 }
-#countryList img {
-	border: 1px solid #cccccc;
-}
 #countryList input {
 	margin-right: 4px;
 }
-
+img.flag {
+	border: 1px solid #cccccc;
+}
 /*
- * Result List
+ * Dialog
  */
-#resultList .list-group-item {
-	/*cursor: pointer;*/
+#dialog {
+	display: none;
+}
+#dialog .note {
+	margin-top: 20px;
+	border-style: dotted;
+	border-color: gray;
+	border-width: 0px 0px 1px 0px;
+	border-bottom-width: 2px;
 }

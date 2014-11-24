@@ -16,12 +16,22 @@ abstract class DaoBase {
 		$this->pdo = new PDO(DB_DSN, DB_USER, DB_PASS);
 	}
 
-	function connect() {
+	static function escape($str) {
+		$result = str_replace('%', '', $str);
+		return str_replace('_', '', $result);
+	}
+
+	static function like($str) {
+		return '%'.self::escape($str).'%';
 	}
 
 	function select($query, array $param = null) {
 		$stmt = $this->pdo->prepare($query);
-		$stmt->execute($param);
+		try {
+			$stmt->execute($param);
+		} catch (PDOException $ex) {
+			error_log($ex->getMessage());
+		}
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
 
