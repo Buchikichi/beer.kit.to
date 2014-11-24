@@ -14,22 +14,26 @@ SELECT
   ITM.itemId,
   ITM.countryCd,
   ITM.imgsrc,
-  ITN.noun itemName,
+  INM.noun itemName,
+  INO.noun note,
   I3.flag
 FROM
   `item` ITM
-JOIN `noun` ITN on
-  ITM.itemId = ITN.nounId
-  AND ITN.lang = :lang
-JOIN `iso3166` I3 on
+INNER JOIN `noun` INM on
+  ITM.itemId = INM.nounId
+  AND INM.lang = :lang
+INNER JOIN `iso3166` I3 on
   ITM.countryCd = I3.countryCd
+LEFT JOIN `noun` INO on
+  ITM.noteId = INO.nounId
+  AND INO.lang = :lang
 WHERE
   ITM.itemId = :itemId
 EOD;
-		$param = array(
+		$dbParam = array(
 			'lang'=>$lang,
 			'itemId'=>$itemId);
-		$rec = $this->selectOne($query, $param);
+		$rec = $this->selectOne($query, $dbParam);
 		$itemId = $rec['itemId'];
 		// ABV
 		$abv = $itemAttrDao->getABV($itemId);
@@ -40,30 +44,75 @@ EOD;
 		return $rec;
 	}
 
+	protected function makeInClause($field, array $values, &$dbParam) {
+		$keyList = array();
+		foreach ($values as $ix => $val) {
+			if (empty($val)) {
+				continue;
+			}
+			$key = ':ccd'.$ix;
+			$dbParam[$key] = $val;
+			$keyList[] = $key;
+		}
+		if (count($keyList) == 0) {
+			return null;
+		}
+		return $field.' in ('.implode(',', $keyList).')';
+	}
+
 	/**
 	 * Get list of items.
-	 * @param unknown $lang
-	 * @param unknown $keyword
+	 * @param mixed $param
 	 * @return array: list of items
 	 */
-	function getList($lang, $keyword) {
+	function getList($param) {
 		$itemAttrDao = new ItemAttrDao();
 		$itemTagsDao = new ItemTagsDao();
 		$conv = RomanConverter::getInstance();
+		// dbParam
+		$lang = $param['lang'];
+		$keyword = $param['keyword'];
+		$country = $param['country'];
+		$lower = strtolower($keyword);
+		$kana = $lower;
+		$kana = str_replace('ヴ', 'ゔ', $kana);
+		$kana = @mb_convert_kana($kana, 'cH', 'UTF-8');
+		$kana = $conv->convert($kana);
+		$dbParam = array(
+			'lang'=>$param['lang'],
+			'keyword'=>DaoBase::like($keyword),
+			'kana'=>DaoBase::like($kana),
+		);
+		$cond = '';
+		$inClause = $this->makeInClause('ITM.countryCd', $country, $dbParam);
+		if (!empty($inClause)) {
+			$cond .= $inClause;
+		}
+		if (!empty($cond)) {
+			$cond = 'AND '.$cond;
+		}
+		// LIMIT
+		$offset = $param['offset'];
+		$limit = $param['limit'];
+		// SQL
 		$query = <<<EOD
 SELECT
   ITM.itemId,
   ITM.countryCd,
   ITM.thumbnail,
-  ITN.noun itemName,
+  INM.noun itemName,
+  INO.noun note,
   I3.flag
 FROM
   `item` ITM
-JOIN `noun` ITN on
-  ITM.itemId = ITN.nounId
-  AND ITN.lang = :lang
-JOIN `iso3166` I3 on
+INNER JOIN `iso3166` I3 on
   ITM.countryCd = I3.countryCd
+INNER JOIN `noun` INM on
+  ITM.itemId = INM.nounId
+  AND INM.lang = :lang
+LEFT JOIN `noun` INO on
+  ITM.noteId = INO.nounId
+  AND INO.lang = :lang
 WHERE
   ITM.itemId in (
     SELECT itemId FROM item
@@ -71,19 +120,13 @@ WHERE
       synonym like :keyword
       OR synonym like :kana
   )
+  $cond
 ORDER BY
-  ITN.noun
+  ITM.countryCd,
+  INM.noun
+LIMIT $offset, $limit
 EOD;
-		$lower = strtolower($keyword);
-		$kana = $lower;
-		$kana = str_replace('ヴ', 'ゔ', $kana);
-		$kana = @mb_convert_kana($kana, 'cH', 'UTF-8');
-		$kana = $conv->convert($kana);
-		$param = array(
-			'lang'=>$lang,
-			'keyword'=>DaoBase::like($keyword),
-			'kana'=>DaoBase::like($kana));
-		$list = $this->select($query, $param);
+		$list = $this->select($query, $dbParam);
 		foreach ($list as &$rec) {
 			$itemId = $rec['itemId'];
 			// ABV

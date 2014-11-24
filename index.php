@@ -35,12 +35,12 @@
           </li>
           <li><a href="#about"><span class="glyphicon glyphicon-info-sign"></span></a></li>
         </ul>
-        <form class="navbar-form navbar-right" role="search">
+        <div class="navbar-form navbar-right" role="search">
           <div class="form-group input-group">
             <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
-            <input type="text" name="keyword" placeholder="Search" class="form-control"/>
+            <input type="text" name="keyword" placeholder="Search" class="form-control" autofocus="autofocus"/>
           </div>
-        </form>
+        </div>
       </div><!--/.nav-collapse -->
     </div>
   </nav>
@@ -57,6 +57,20 @@
 </div>
 -->
   <div id="resultList" class="list-group" role="list"></div>
+  <div id="itemTemplate" class="list-group" role="list">
+    <a href="#" class="list-group-item">
+      <span class="media-left"><img src="./img/64x64.png" class="img-thumbnail"/></span>
+      <span class="media-body">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABcAAAAUCAIAAADp3DFZAAAABmJLR0QA/wD/AP+gvaeTAAAALUlEQVQ4jWNkwAaCvMRWTNPBFP/e9uvP4b+Y4kxYTSEVjJoyasqoKaOmjARTADyKB3dQow4IAAAAAElFTkSuQmCC" title="ベルギー"/>
+        <strong class="media-heading">タラスブルバ</strong>
+        <span class="badge">4.5</span>
+        <span class="label label-primary">エール</span>
+        <span class="label label-primary">ホップ</span>
+        <br/>
+        アルコール度数低めで、ホップの香りを最大限に活かしたゴールデンエール
+      </span>
+    </a>
+  </div>
   <div id="dialog" class="container">
     <div id="countryList" class="list-group"></div>
     <div id="shopSelection">
@@ -73,7 +87,7 @@
           <span id="itemNote" class="media-body">
             <img src="" class="flag"/>
             <strong class="media-heading">itemName</strong><br/>
-            <span class="note"></span><br/>
+            <span class="note" translate="yes"></span><br/>
             <span class="ext">
             </span>
           </span>

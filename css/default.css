@@ -16,6 +16,9 @@ body {
 img.flag {
 	border: 1px solid #cccccc;
 }
+#itemTemplate {
+	display: none;
+}
 /*
  * Dialog
  */
@@ -27,5 +30,5 @@ img.flag {
 	border-style: dotted;
 	border-color: gray;
 	border-width: 0px 0px 1px 0px;
-	border-bottom-width: 2px;
+	border-bottom-width: 1px;
 }

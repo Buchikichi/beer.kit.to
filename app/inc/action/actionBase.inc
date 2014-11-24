@@ -12,8 +12,8 @@ abstract class ActionBase {
 		$this->process();
 	}
 
-	protected function getParam($name) {
-		$val = '';
+	protected function getParam($name, $default = '') {
+		$val = $default;
 		if (!empty($_REQUEST[$name])) {
 			$val = $_REQUEST[$name];
 		}
