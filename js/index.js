@@ -23,11 +23,11 @@ $(document).ready(function() {
 	});
 	$('input[name=keyword]').keyup(function() {
 		var self = $(this);
-		var lastLen = self.prop('len');
-		var len = self.val().length;
+		var last = self.prop('last');
+		var val = self.val();
 
-		if (lastLen != len) {
-			self.prop('len', len);
+		if (last != val) {
+			self.prop('last', val);
 			resetItemList();
 		}
 	});
