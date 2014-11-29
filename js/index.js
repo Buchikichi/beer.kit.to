@@ -260,33 +260,22 @@ function showItemList() {
 			resultList.prop('done', true);
 			return;
 		}
+		var template = $('#itemTemplate > a');
 		$(data.list).each(function(ix, rec) {
-//<a href="#" class="list-group-item">
-//  <span class="media-left"><img src="./img/64x64.png" class="img-thumbnail"/></span>
-//  <span class="media-body">
-//    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABcAAAAUCAIAAADp3DFZAAAABmJLR0QA/wD/AP+gvaeTAAAALUlEQVQ4jWNkwAaCvMRWTNPBFP/e9uvP4b+Y4kxYTSEVjJoyasqoKaOmjARTADyKB3dQow4IAAAAAElFTkSuQmCC" title="ベルギー"/>
-//    <strong class="media-heading">タラスブルバ</strong>
-//    <span class="badge">4.5</span>
-//    <span class="label label-primary">エール</span>
-//    <span class="label label-primary">ホップ</span>
-//    <br/>
-//    アルコール度数低めで、ホップの香りを最大限に活かしたゴールデンエール
-//  </span>
-//</a>
-			var anc = $('<a href="#" class="list-group-item"></a>');
-			if (rec.thumbnail == null) {
-				var thumbnail = $('<span class="media-left"><img src="./img/64x64.png" class="img-thumbnail"/></span>');
-			} else {
-				var thumbnail = $('<span class="media-left"><img src="data:image/jpeg;base64,' + rec.thumbnail + '" class="img-thumbnail"/></span>');
-			}
-			var bd = $('<span class="media-body"></span>');
-			var flag = $('<img src="data:image/png;base64,' + rec.flag + '" alt="[' + rec.countryCd + ']" class="flag"/>');
-			var name = $('<strong class="media-heading">' + rec.itemName + '</strong>');
-			var abv = $('<span class="badge">' + rec.abv + '</span>');
+			var anc = template.clone();
+			var thumbnail = anc.find('.img-thumbnail');
+			var bd = anc.find('.media-body');
+			var flag = bd.find('img');
+			var name = bd.find('.media-heading');
+			var abv = bd.find('.badge');
 
-			bd.append(flag);
-			bd.append(name);
-			bd.append(abv);
+			if (rec.thumbnail != null) {
+				thumbnail.attr('src', 'data:image/jpeg;base64,' + rec.thumbnail);
+			}
+			flag.attr('src', 'data:image/png;base64,' + rec.flag);
+			flag.attr('alt', rec.countryCd);
+			name.text(rec.itemName);
+			abv.text(rec.abv);
 			$(rec.tags).each(function(ix, tagName) {
 				var tag = $('<span class="label label-primary">' + tagName + '</span>');
 				bd.append(' ');
@@ -294,8 +283,6 @@ function showItemList() {
 			});
 			bd.append($('<br/>'));
 			bd.append(rec.note);
-			anc.append(thumbnail);
-			anc.append(bd);
 			anc.click(function() {
 				showItemDetail(rec.itemId);
 				return false;

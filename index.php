@@ -15,20 +15,22 @@
 
 <body>
   <nav id="topNav" class="navbar navbar-default navbar-fixed-top" role="navigation">
-    <div class="container">
-      <div class="navbar-header"><span class="navbar-brand">drink.kit.to</span></div>
-      <div class="navbar-collapse collapse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#topNavbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        </button>
+        <span class="navbar-brand">drink.kit.to</span>
+      </div>
+      <div id="topNavbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
           <li><a href="#country"><span class="glyphicon glyphicon-globe"></span></a></li>
           <li><a href="#shop"><span class="glyphicon glyphicon-book"></span></a></li>
           <li><a href="#kind"><span class="glyphicon glyphicon-glass"></span></a></li>
           <li><a href="#tags"><span class="glyphicon glyphicon-tags"></span></a></li>
-<!--
-          <li class="dropdown disabled">
-            <a href="#test" class="dropdown-toggle disabled" data-toggle="dropdown"><span class="glyphicon glyphicon-heart"></span></a>
-            <ul class="dropdown-menu" role="menu"></ul>
-          </li>
--->
           <li class="dropdown">
             <a aria-expanded="false" href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-pencil"></span><span class="caret"></span></a>
             <ul id="languageList" class="dropdown-menu" role="menu"></ul>
@@ -61,13 +63,9 @@
     <a href="#" class="list-group-item">
       <span class="media-left"><img src="./img/64x64.png" class="img-thumbnail"/></span>
       <span class="media-body">
-        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABcAAAAUCAIAAADp3DFZAAAABmJLR0QA/wD/AP+gvaeTAAAALUlEQVQ4jWNkwAaCvMRWTNPBFP/e9uvP4b+Y4kxYTSEVjJoyasqoKaOmjARTADyKB3dQow4IAAAAAElFTkSuQmCC" title="ベルギー"/>
-        <strong class="media-heading">タラスブルバ</strong>
-        <span class="badge">4.5</span>
-        <span class="label label-primary">エール</span>
-        <span class="label label-primary">ホップ</span>
-        <br/>
-        アルコール度数低めで、ホップの香りを最大限に活かしたゴールデンエール
+        <img src="" class="flag"/>
+        <strong class="media-heading"></strong><br/>
+        <span class="badge"></span>
       </span>
     </a>
   </div>
