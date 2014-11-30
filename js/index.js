@@ -79,6 +79,7 @@ function showDialog(target, option) {
 	target.show();
 	option.modal = true;
 	option.resizable = false;
+	option.draggable = false;
 	dlg.dialog(option);
 }
 

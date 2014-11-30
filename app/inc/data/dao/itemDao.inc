@@ -15,7 +15,7 @@ SELECT
   ITM.countryCd,
   ITM.imgsrc,
   INM.noun itemName,
-  INO.noun note,
+  ifnull(INO.noun, '') note,
   I3.flag
 FROM
   `item` ITM
